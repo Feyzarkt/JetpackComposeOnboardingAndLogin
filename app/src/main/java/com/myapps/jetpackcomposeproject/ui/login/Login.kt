@@ -1,32 +1,46 @@
-package com.myapps.jetpackcomposeproject.ui
+package com.myapps.jetpackcomposeproject.ui.login
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.myapps.jetpackcomposeproject.components.TextInput
-import com.myapps.jetpackcomposeproject.components.model.InputType
-import com.myapps.jetpackcomposeproject.components.model.Screen
+import com.myapps.jetpackcomposeproject.data.model.InputType
+import com.myapps.jetpackcomposeproject.data.model.Screen
 
 @Composable
-fun Login(navController: NavController) {
+fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
+    val loginUiState by viewModel.loginUiState.collectAsState()
+
     val focusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val context = LocalContext.current
+
+    if (loginUiState.loginStatus){
+        Toast.makeText(context, "Successfully signed in.", Toast.LENGTH_SHORT ).show()
+        viewModel.loginStatusShown()
+        navController.navigate(Screen.Home.route) {
+            popUpTo(Screen.Login.route) {
+                inclusive = true
+            }
+        }
+    }
+    if (loginUiState.error.isNotEmpty()){
+        Toast.makeText(context, "ERROR: ${loginUiState.error}", Toast.LENGTH_SHORT ).show()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,6 +62,7 @@ fun Login(navController: NavController) {
         Button(
             onClick = {
                 Toast.makeText(context, "${emailValue.value} ${passwordValue.value}", Toast.LENGTH_SHORT ).show()
+                viewModel.login(emailValue.value, passwordValue.value)
             },
             modifier = Modifier
                 .fillMaxWidth(),
