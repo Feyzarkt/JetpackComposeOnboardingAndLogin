@@ -4,9 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.myapps.jetpackcomposeproject.components.model.Screen
-import com.myapps.jetpackcomposeproject.ui.Login
-import com.myapps.jetpackcomposeproject.ui.Signup
+import com.myapps.jetpackcomposeproject.data.model.Screen
+import com.myapps.jetpackcomposeproject.ui.home.Home
+import com.myapps.jetpackcomposeproject.ui.login.Login
+import com.myapps.jetpackcomposeproject.ui.signup.Signup
 
 @Composable
 fun SetupNavGraph(navController: NavHostController){
@@ -15,7 +16,10 @@ fun SetupNavGraph(navController: NavHostController){
             Login(navController)
         }
         composable(Screen.Signup.route) {
-            Signup()
+            Signup(navController)
+        }
+        composable(Screen.Home.route) {
+            Home(navController)
         }
     }
 }
