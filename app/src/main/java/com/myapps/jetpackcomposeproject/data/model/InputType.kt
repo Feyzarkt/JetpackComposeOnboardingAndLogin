@@ -1,4 +1,4 @@
-package com.myapps.jetpackcomposeproject.components.model
+package com.myapps.jetpackcomposeproject.data.model
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
