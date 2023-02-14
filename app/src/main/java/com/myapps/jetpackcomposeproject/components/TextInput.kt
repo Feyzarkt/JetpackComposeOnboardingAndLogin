@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.unit.dp
-import com.myapps.jetpackcomposeproject.components.model.InputType
+import com.myapps.jetpackcomposeproject.data.model.InputType
 
 @Composable
 fun TextInput(
@@ -25,7 +25,6 @@ fun TextInput(
     focusRequester: FocusRequester? = null,
     keyboardActions: KeyboardActions
 ) {
-    //var value by remember { mutableStateOf("") }
     OutlinedTextField(
         value = inputValue.value,
         onValueChange = { inputValue.value = it },
