@@ -3,7 +3,7 @@ package com.myapps.jetpackcomposeproject.ui.login
 data class LoginUIState(
     val loginStatus: Boolean,
     val isLoading: Boolean,
-    val error: String
+    var error: String
 ) {
     companion object {
         fun initial() = LoginUIState(
