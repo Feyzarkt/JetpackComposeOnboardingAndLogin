@@ -11,9 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.myapps.jetpackcomposeproject.R
 import com.myapps.jetpackcomposeproject.components.TextInput
 import com.myapps.jetpackcomposeproject.data.model.InputType
 import com.myapps.jetpackcomposeproject.data.model.Screen
@@ -39,6 +42,7 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
     }
     if (loginUiState.error.isNotEmpty()){
         Toast.makeText(context, "ERROR: ${loginUiState.error}", Toast.LENGTH_SHORT ).show()
+        loginUiState.error = ""
     }
 
     Column(
@@ -49,9 +53,17 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "MyApp",
+            text = "Hello Again!",
             style = MaterialTheme.typography.h2,
-            modifier = Modifier.padding(bottom = 18.dp)
+            modifier = Modifier.padding(bottom = 10.dp).align(Alignment.Start),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.purple_700)
+        )
+        Text(
+            text = "Welcome",
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(bottom = 18.dp).align(Alignment.Start),
+            color = colorResource(id = R.color.purple_700)
         )
         TextInput(InputType.Email, inputValue = emailValue, keyboardActions = KeyboardActions(onNext = {
             focusRequester.requestFocus()
@@ -61,14 +73,17 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
         }), focusRequester = focusRequester)
         Button(
             onClick = {
-                Toast.makeText(context, "${emailValue.value} ${passwordValue.value}", Toast.LENGTH_SHORT ).show()
-                viewModel.login(emailValue.value, passwordValue.value)
+                if(emailValue.value.isEmpty() || passwordValue.value.isEmpty()){
+                    Toast.makeText(context, "Please enter the necessary values!", Toast.LENGTH_SHORT ).show()
+                }else{
+                    viewModel.login(emailValue.value, passwordValue.value)
+                }
             },
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(27.dp)
         ) {
-            Text(text = "Login", modifier = Modifier.padding(vertical = 8.dp))
+            Text(text = "Sign In", modifier = Modifier.padding(vertical = 8.dp))
         }
         Divider(modifier = Modifier.fillMaxWidth())
         Row(modifier = Modifier.padding(bottom = 40.dp), verticalAlignment = Alignment.CenterVertically) {

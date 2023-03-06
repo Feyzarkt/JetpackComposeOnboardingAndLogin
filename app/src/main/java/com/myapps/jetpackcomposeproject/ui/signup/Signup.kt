@@ -11,9 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.myapps.jetpackcomposeproject.R
 import com.myapps.jetpackcomposeproject.components.TextInput
 import com.myapps.jetpackcomposeproject.data.model.InputType
 import com.myapps.jetpackcomposeproject.data.model.Screen
@@ -57,9 +60,11 @@ fun Signup(navController: NavController, viewModel: SignupViewModel = hiltViewMo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Sign Up",
-            style = MaterialTheme.typography.h2,
-            modifier = Modifier.padding(bottom = 18.dp)
+            text = "Hello!\nSign up to get started",
+            style = MaterialTheme.typography.h3,
+            modifier = Modifier.padding(bottom = 18.dp),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.purple_700)
         )
         TextInput(InputType.Email, inputValue = emailValue, keyboardActions = KeyboardActions(onGo = {
             focusRequester.requestFocus()
@@ -91,7 +96,7 @@ fun Signup(navController: NavController, viewModel: SignupViewModel = hiltViewMo
             shape = RoundedCornerShape(27.dp),
             enabled = isValidProcess
         ) {
-            Text(text = "Register", modifier = Modifier.padding(vertical = 8.dp))
+            Text(text = "Sign Up", modifier = Modifier.padding(vertical = 8.dp))
         }
     }
 }
