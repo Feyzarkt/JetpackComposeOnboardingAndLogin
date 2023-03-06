@@ -81,4 +81,8 @@ dependencies {
     //ViewModel in Compose
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 
+    // Pager and Indicators - Accompanist
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
+
 }
